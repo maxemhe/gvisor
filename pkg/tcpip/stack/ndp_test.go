@@ -3666,3 +3666,35 @@ func TestStopStartSolicitingRouters(t *testing.T) {
 		})
 	}
 }
+
+func TestDHCPv6ConfigurationFromNDPRAString(t *testing.T) {
+	tests := []struct {
+		configString string
+		configVal    stack.DHCPv6ConfigurationFromNDPRA
+	}{
+		{
+			configString: "NoConfiguration",
+			configVal:    stack.DHCPv6NoConfiguration,
+		},
+		{
+			configString: "ManagedAddress",
+			configVal:    stack.DHCPv6ManagedAddress,
+		},
+		{
+			configString: "OtherConfigurations",
+			configVal:    stack.DHCPv6OtherConfigurations,
+		},
+		{
+			configString: "InvalidDHCPv6ConfigurationFromNDPRA",
+			configVal:    stack.DHCPv6ConfigurationFromNDPRA(255),
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.configString, func(t *testing.T) {
+			if got := test.configVal.String(); got != test.configString {
+				t.Fatalf("got String() = %s, want = %s", got, test.configString)
+			}
+		})
+	}
+}

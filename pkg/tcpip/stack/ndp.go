@@ -156,6 +156,20 @@ const (
 	DHCPv6OtherConfigurations
 )
 
+// String implements the fmt.Stringer interface.
+func (c DHCPv6ConfigurationFromNDPRA) String() string {
+	switch c {
+	case DHCPv6NoConfiguration:
+		return "NoConfiguration"
+	case DHCPv6ManagedAddress:
+		return "ManagedAddress"
+	case DHCPv6OtherConfigurations:
+		return "OtherConfigurations"
+	default:
+		return "InvalidDHCPv6ConfigurationFromNDPRA"
+	}
+}
+
 // NDPDispatcher is the interface integrators of netstack must implement to
 // receive and handle NDP related events.
 type NDPDispatcher interface {
